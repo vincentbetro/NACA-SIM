@@ -1,0 +1,20 @@
+\begin{thebibliography}{}
+
+\bibitem[Anderson, 2007]{Anderson07}
+Anderson, W. K. (2007).
+\newblock Introduction, Control Volumes, Higher Order Reconstruction, Point-Iterative Implicit Schemes, Inviscid Flux Evaluation/Inviscid and Farfield BC's.
+\newblock In {\em ENCM710 Course Notes ({UT Sim Center} '07)}.
+
+\bibitem[Cuthill-McKee, 1980]{Cuthill80}
+Cuthill, M., McKee, J. (1980).
+\newblock Node Reordering Scheme to Reduce Bandwidth of Sparse Block Matrices.
+\newblock {\em {AMS} Notices of the American Mathematical Society (June '80)},
+  pages 349--389.
+
+\bibitem[VanLeer, 1982]{VanLeer82}
+VanLeer, R. (1982).
+\newblock Flux Vector Splitting Techniques.
+\newblock {\em {AIAA} AIAA Bulletin (March '82)},
+  pages 149--199.
+
+\end{thebibliography}

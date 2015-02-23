@@ -1,0 +1,692 @@
+<!-- $Id: example.html,v 1.4 2006/03/27 02:44:36 pat Exp $ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>UT SimCenter @ Chattanooga: Online Euler Emulator with Adaptive Refinement</title>
+
+<script type="text/javascript" src="tabber/tabber.js"></script>
+<link rel="stylesheet" href="index.css" />
+<script src="scriptaculous/scriptaculous.js" type="text/javascript"></script>
+<script src="scriptaculous/effects.js" type="text/javascript"></script>
+<script src="index.js" type="text/javascript"></script>
+<link rel="stylesheet" href="tabber/example.css" TYPE="text/css" MEDIA="screen">
+<link rel="stylesheet" href="tabber/example-print.css" TYPE="text/css" MEDIA="print">
+
+<script type="text/javascript">
+
+/* Optional: Temporarily hide the "tabber" class so it does not "flash"
+   on the page as plain HTML. After tabber runs, the class is changed
+   to "tabberlive" and it will appear. */
+
+document.write('<style type="text/css">.tabber{display:none;}<\/style>');
+</script>
+
+</head>
+
+
+<body>
+<p>
+	<a href="index.html"><img name="simlogo" src="images/simlogo.png" alt="SimCenter Logo" border="0" /></a> <br />
+	<span style="font-size:25px">SimCenter: NCCE STEM Outreach</span>
+    
+    <br /> <br />
+    
+    <span lang=EN style='font-size:20.0pt;mso-ansi-language:EN'><a
+href="http://www2.utc.edu/telmu.html">PLEASE CLICK THIS LINK TO GO TO TELMU ACADEMY WEBSITE!</a></span>
+    
+    <br /> <br />
+    <br /> <br />
+    
+    <span style="font-size:20px">MORE TEACHER RESOURCES!!!!</span>  
+    
+    <br /> <br />  
+    <a href="https://shop.egfi-k12.org/">Get a free classroom kit from ASEE!</a>
+        <br />
+        <a href="http://www.aiaa.org/content.cfm?pageid=215">Get free membership and a classroom kit from AIAA!</a>
+    <br /> <br />  
+    <a href="http://www.discoverynow.us">Check out these podcasts from the NIA/AIAA on STEM topics!</a>
+        <br />
+        <a href="http://www.nasa.gov/audience/foreducators/nasaeclips/index.html">Go watch these NASA eClips (categorized by age level), courtesy of NASA and NIA!</a>
+    <br /><br /><br />
+    <span style="font-size:18px">Online Euler Emulator with Adaptive Refinement</span>
+	<br />
+
+</p>
+
+<script language="javascript">
+
+var postAngleAttack = '';
+var postOrder = '';
+var postMach = '';
+var postPI = '';
+var postCFL = '';
+var postRefine = '';
+
+var mach = '\
+-08:1:0.55:0.55|\
+-08:1:0.65:0.65|\
+-08:1:0.75:0.75|\
+-08:1:0.85:0.85|\
+-08:1:1.05:1.05|\
+-07:1:0.55:0.55|\
+-07:1:0.65:0.65|\
+-07:1:0.75:0.75|\
+-07:1:0.85:0.85|\
+-07:1:1.05:1.05|\
+-06:1:0.55:0.55|\
+-06:1:0.65:0.65|\
+-06:1:0.75:0.75|\
+-06:1:0.85:0.85|\
+-06:1:1.05:1.05|\
+-05:1:0.55:0.55|\
+-05:1:0.65:0.65|\
+-05:1:0.75:0.75|\
+-05:1:0.85:0.85|\
+-05:1:1.05:1.05|\
+-04:1:0.55:0.55|\
+-04:1:0.65:0.65|\
+-04:1:0.75:0.75|\
+-04:1:0.85:0.85|\
+-04:1:0.95:0.95|\
+-04:1:1.05:1.05|\
+-03:1:0.55:0.55|\
+-03:1:0.65:0.65|\
+-03:1:0.75:0.75|\
+-03:1:0.85:0.85|\
+-03:1:0.95:0.95|\
+-03:1:1.05:1.05|\
+-03:2:0.55:0.55|\
+-03:2:0.65:0.65|\
+-03:2:0.75:0.75|\
+-03:2:0.85:0.85|\
+-03:2:0.95:0.95|\
+-02:1:0.55:0.55|\
+-02:1:0.65:0.65|\
+-02:1:0.75:0.75|\
+-02:1:0.85:0.85|\
+-02:1:0.95:0.95|\
+-02:1:1.05:1.05|\
+-02:2:0.55:0.55|\
+-02:2:0.65:0.65|\
+-02:2:0.75:0.75|\
+-02:2:0.85:0.85|\
+-02:2:0.95:0.95|\
+-01:1:0.55:0.55|\
+-01:1:0.65:0.65|\
+-01:1:0.75:0.75|\
+-01:1:0.85:0.85|\
+-01:1:0.95:0.95|\
+-01:1:1.05:1.05|\
+-01:2:0.55:0.55|\
+-01:2:0.65:0.65|\
+-01:2:0.75:0.75|\
+-01:2:0.85:0.85|\
+-01:2:0.95:0.95|\
++00:1:0.55:0.55|\
++00:1:0.65:0.65|\
++00:1:0.75:0.75|\
++00:1:0.85:0.85|\
++00:1:0.95:0.95|\
++00:1:1.05:1.05|\
++00:2:0.55:0.55|\
++00:2:0.65:0.65|\
++00:2:0.75:0.75|\
++00:2:0.85:0.85|\
++00:2:0.95:0.95|\
++01:1:0.55:0.55|\
++01:1:0.65:0.65|\
++01:1:0.75:0.75|\
++01:1:0.85:0.85|\
++01:1:0.95:0.95|\
++01:1:1.05:1.05|\
++01:2:0.55:0.55|\
++01:2:0.65:0.65|\
++01:2:0.75:0.75|\
++01:2:0.85:0.85|\
++01:2:0.95:0.95|\
++02:1:0.55:0.55|\
++02:1:0.65:0.65|\
++02:1:0.75:0.75|\
++02:1:0.85:0.85|\
++02:1:0.95:0.95|\
++02:1:1.05:1.05|\
++02:2:0.55:0.55|\
++02:2:0.65:0.65|\
++02:2:0.75:0.75|\
++02:2:0.85:0.85|\
++02:2:0.95:0.95|\
++03:1:0.55:0.55|\
++03:1:0.65:0.65|\
++03:1:0.75:0.75|\
++03:1:0.85:0.85|\
++03:1:0.95:0.95|\
++03:1:1.05:1.05|\
++03:2:0.55:0.55|\
++03:2:0.65:0.65|\
++03:2:0.75:0.75|\
++03:2:0.85:0.85|\
++03:2:0.95:0.95|\
++04:1:0.55:0.55|\
++04:1:0.65:0.65|\
++04:1:0.75:0.75|\
++04:1:0.85:0.85|\
++04:1:0.95:0.95|\
++04:1:1.05:1.05|\
++05:1:0.55:0.55|\
++05:1:0.65:0.65|\
++05:1:0.75:0.75|\
++05:1:0.85:0.85|\
++05:1:1.05:1.05|\
++06:1:0.55:0.55|\
++06:1:0.65:0.65|\
++06:1:0.75:0.75|\
++06:1:0.85:0.85|\
++06:1:1.05:1.05|\
++07:1:0.55:0.55|\
++07:1:0.65:0.65|\
++07:1:0.75:0.75|\
++07:1:0.85:0.85|\
++07:1:1.05:1.05|\
++08:1:0.55:0.55|\
++08:1:0.65:0.65|\
++08:1:0.75:0.75|\
++08:1:0.85:0.85|\
++08:1:1.05:1.05|\
+';
+
+var order = '\
+-08:1:1st|\
+-07:1:1st|\
+-06:1:1st|\
+-05:1:1st|\
+-04:1:1st|\
+-03:1:1st|\
+-03:2:2nd|\
+-02:1:1st|\
+-02:2:2nd|\
+-01:1:1st|\
+-01:2:2nd|\
++00:1:1st|\
++00:2:2nd|\
++01:1:1st|\
++01:2:2nd|\
++02:1:1st|\
++02:2:2nd|\
++03:1:1st|\
++03:2:2nd|\
++04:1:1st|\
++05:1:1st|\
++06:1:1st|\
++07:1:1st|\
++08:1:1st|\
+';
+
+var angleAttack = '\
++08:-8|\
++07:-7|\
++06:-6|\
++05:-5|\
++04:-4|\
++03:-3|\
++02:-2|\
++01:-1|\
++00:0|\
+-01:1|\
+-02:2|\
+-03:3|\
+-04:4|\
+-05:5|\
+-06:6|\
+-07:7|\
+-08:8|\
+';
+
+var pI = '\
+020:20|\
+040:40|\
+060:60|\
+080:80|\
+100:100|\
+120:120|\
+140:140|\
+160:160|\
+180:180|\
+200:200|\
+';
+
+var cFL = '\
+050:50|\
+100:100|\
+150:150|\
+200:200|\
+250:250|\
+300:300|\
+350:350|\
+400:400|\
+450:450|\
+500:500|\
+';
+
+var refine = '\
+01:Finer|\
+02:Finest|\
+';
+
+function TrimString(sInString) {
+  if ( sInString ) {
+    sInString = sInString.replace( /^\s+/g, "" );// strip leading
+    return sInString.replace( /\s+$/g, "" );// strip trailing
+  }
+}
+
+function populateAngleAttack() {
+  var foundAngle = false;
+  var angleAttackLineArray = angleAttack.split('|');  // Split into lines
+  var selObj = document.getElementById('angleAttackSelect');
+  selObj.options[0] = new Option('Select Angle of Attack','');
+  selObj.selectedIndex = 0;
+  for (var loop = 0; loop < angleAttackLineArray.length; loop++) {
+    lineArray = angleAttackLineArray[loop].split(':');
+    angleCode  = TrimString(lineArray[0]);
+    angleName  = TrimString(lineArray[1]);
+    if ( angleCode != '' ) {
+      selObj.options[loop + 1] = new Option(angleName, angleCode);
+    }
+    // See if it's selected from a previous post
+    if ( angleCode == postAngleAttack ) {
+      selObj.selectedIndex = loop + 1;
+    }
+    foundAngle = true;
+  }
+}
+
+function populateOrder() {
+  var selObj = document.getElementById('orderSelect');
+  var foundOrder = false;
+  // Empty options just in case new drop down is shorter
+  if ( selObj.type == 'select-one' ) {
+    for (var i = 0; i < selObj.options.length; i++) {
+      selObj.options[i] = null;
+    }
+    selObj.options.length=null;
+    selObj.options[0] = new Option('Select Order of Accuracy','');
+    selObj.selectedIndex = 0;
+  }
+
+  var orderLineArray = order.split("|");  // Split into lines
+  var optionCntr = 1;
+  for (var loop = 0; loop < orderLineArray.length; loop++) {
+    lineArray = orderLineArray[loop].split(":");
+    angleCode  = TrimString(lineArray[0]);
+    orderCode    = TrimString(lineArray[1]);
+    orderName    = TrimString(lineArray[2]);
+  if (document.getElementById('angleAttackSelect').value == angleCode && angleCode != '' ) {
+      if ( selObj.type == 'text' ) {
+        parentObj = document.getElementById('orderSelect').parentNode;
+        parentObj.removeChild(selObj);
+        var inputSel = document.createElement("SELECT");
+        inputSel.setAttribute("name","order");
+        inputSel.setAttribute("id","orderSelect");
+        parentObj.appendChild(inputSel) ;
+        selObj = document.getElementById('orderSelect');
+        selObj.options[0] = new Option('Select Order of Accuracy','');
+        selObj.selectedIndex = 0;
+      }
+      if ( orderCode != '' ) {
+        selObj.options[optionCntr] = new Option(orderName, orderCode);
+      }
+      // See if it's selected from a previous post
+      if ( orderCode == postOrder && angleCode == postAngleAttack ) {
+        selObj.selectedIndex = optionCntr;
+      }
+      foundOrder = true;
+      optionCntr++
+    }
+  }
+}
+
+function populateMach() {
+  var selObj = document.getElementById('machSelect');
+  var foundMach = false;
+  // Empty options just in case new drop down is shorter
+  if ( selObj.type == 'select-one' ) {
+    for (var i = 0; i < selObj.options.length; i++) {
+      selObj.options[i] = null;
+    }
+    selObj.options.length=null;
+    selObj.options[0] = new Option('Select Mach Number','');
+    selObj.selectedIndex = 0;
+  }
+
+  var machLineArray = mach.split("|");  // Split into lines
+  var optionCntr = 1;
+  for (var loop = 0; loop < machLineArray.length; loop++) {
+    lineArray = machLineArray[loop].split(":");
+    angleCode  = TrimString(lineArray[0]);
+    orderCode    = TrimString(lineArray[1]);
+    machCode    = TrimString(lineArray[2]);
+	machName    = TrimString(lineArray[3]);
+  if (document.getElementById('angleAttackSelect').value == angleCode && angleCode != '' && document.getElementById('orderSelect').value == orderCode && orderCode != '' ) {
+      if ( selObj.type == 'text' ) {
+        parentObj = document.getElementById('machSelect').parentNode;
+        parentObj.removeChild(selObj);
+        var inputSel = document.createElement("SELECT");
+        inputSel.setAttribute("name","mach");
+        inputSel.setAttribute("id","machSelect");
+        parentObj.appendChild(inputSel) ;
+        selObj = document.getElementById('machSelect');
+        selObj.options[0] = new Option('Select Mach Number','');
+        selObj.selectedIndex = 0;
+      }
+      if ( machCode != '' ) {
+        selObj.options[optionCntr] = new Option(machName, machCode);
+      }
+      // See if it's selected from a previous post
+      if (machCode == postMach && orderCode == postOrder && angleCode == postAngleAttack ) {
+        selObj.selectedIndex = optionCntr;
+      }
+      foundMach = true;
+      optionCntr++
+    }
+  }
+}
+
+function populatePI() {
+  var foundPI = false;
+  var pILineArray = pI.split('|');  // Split into lines
+  var selObj = document.getElementById('pISelect');
+  selObj.options[0] = new Option('Select Point Iterative Iterations','');
+  selObj.selectedIndex = 0;
+  for (var loop = 0; loop < pILineArray.length; loop++) {
+    lineArray = pILineArray[loop].split(':');
+    pICode  = TrimString(lineArray[0]);
+    pIName  = TrimString(lineArray[1]);
+    if ( pICode != '' ) {
+      selObj.options[loop + 1] = new Option(pIName, pICode);
+    }
+    // See if it's selected from a previous post
+    if ( pICode == postPI ) {
+      selObj.selectedIndex = loop + 1;
+    }
+    foundPI = true;
+  }
+}
+
+function populateCFL() {
+  var foundCFL = false;
+  var cFLLineArray = cFL.split('|');  // Split into lines
+  var selObj = document.getElementById('cFLSelect');
+  selObj.options[0] = new Option('Select CFL Number','');
+  selObj.selectedIndex = 0;
+  for (var loop = 0; loop < cFLLineArray.length; loop++) {
+    lineArray = cFLLineArray[loop].split(':');
+    cFLCode  = TrimString(lineArray[0]);
+    cFLName  = TrimString(lineArray[1]);
+    if ( cFLCode != '' ) {
+      selObj.options[loop + 1] = new Option(cFLName, cFLCode);
+    }
+    // See if it's selected from a previous post
+    if ( cFLCode == postCFL ) {
+      selObj.selectedIndex = loop + 1;
+    }
+    foundCFL = true;
+  }
+}
+
+function populateRefine() {
+  var foundRefine = false;
+  var refineLineArray = refine.split('|');  // Split into lines
+  var selObj = document.getElementById('refineSelect');
+  selObj.options[0] = new Option('Select Refinement Step','');
+  selObj.selectedIndex = 0;
+  for (var loop = 0; loop < refineLineArray.length; loop++) {
+    lineArray = refineLineArray[loop].split(':');
+    refineCode  = TrimString(lineArray[0]);
+    refineName  = TrimString(lineArray[1]);
+    if ( refineCode != '' ) {
+      selObj.options[loop + 1] = new Option(refineName, refineCode);
+    }
+    // See if it's selected from a previous post
+    if ( refineCode == postRefine ) {
+      selObj.selectedIndex = loop + 1;
+    }
+    foundRefine = true;
+  }
+}
+
+	function showhide(id)
+	{
+		if (document.getElementById)
+		{
+			obj = document.getElementById(id);
+			if (obj.style.display == "none")
+			{
+				obj.style.display = "";
+			}
+			else
+			{
+				obj.style.display = "none";
+			}
+		}
+	} 
+
+	function MeshButtonClick()
+	{
+		showhide('gridStatus')
+		if (document.theForm.refineSelect.value != 01 && document.theForm.refineSelect.value != 02) {
+			setTimeout("changeMeshAreaPicture('images/meshes/naca0012_'+document.theForm.angleAttackSelect.value+'.png')", 1500)
+		}
+		else {
+			setTimeout("changeMeshAreaPicture('images/order'+document.theForm.orderSelect.value+'/mach'+document.theForm.machSelect.value+'/alpha'+document.theForm.angleAttackSelect.value+'/naca0012_'+document.theForm.orderSelect.value+'_'+document.theForm.machSelect.value+'_'+document.theForm.angleAttackSelect.value+'_'+document.theForm.refineSelect.value+'.png')", 1500)
+		}
+		document.theForm.meshbutton.disabled=true
+		setTimeout("document.theForm.solvebutton.disabled=false",1500)
+        document.theForm.startOverButton.disabled=true
+		setTimeout("document.theForm.startOverButton.disabled=false",1500)
+		document.theForm.angleAttackSelect.disabled=true
+		document.theForm.orderSelect.disabled=false
+		document.theForm.machSelect.disabled=false
+		document.theForm.pISelect.disabled=false
+		document.theForm.cFLSelect.disabled=false
+        //need to enable this after each run of the solver
+		document.theForm.refineSelect.disabled=true
+	}
+
+	function SolveButtonClick()
+	{
+		showhide('solveStatus')
+                if (document.theForm.refineSelect.value != 01 && document.theForm.refineSelect.value != 02)
+                  { 
+		  setTimeout("changeCpAreaPicture('images/order'+document.theForm.orderSelect.value+'/mach'+document.theForm.machSelect.value+'/alpha'+document.theForm.angleAttackSelect.value+'/CPEuler_3_'+document.theForm.orderSelect.value+'_'+document.theForm.angleAttackSelect.value+'_'+document.theForm.machSelect.value+'_00.png')",3000)
+                  }
+                else
+                  {
+                  setTimeout("changeCpAreaPicture('images/order'+document.theForm.orderSelect.value+'/mach'+document.theForm.machSelect.value+'/alpha'+document.theForm.angleAttackSelect.value+'/CPEuler_3_'+document.theForm.orderSelect.value+'_'+document.theForm.angleAttackSelect.value+'_'+document.theForm.machSelect.value+'_'+document.theForm.refineSelect.value+'.png')",3000)
+                  }
+		changeResidualAreaPicture('images/order'+document.theForm.orderSelect.value+'/mach'+document.theForm.machSelect.value+'/alpha'+document.theForm.angleAttackSelect.value+'/RMSEulerIter_'+document.theForm.orderSelect.value+'_'+document.theForm.angleAttackSelect.value+'_'+document.theForm.machSelect.value+'_'+document.theForm.pISelect.value+'_'+document.theForm.cFLSelect.value+'_00.png')
+                if (document.theForm.refineSelect.value != 01 && document.theForm.refineSelect.value != 02)
+                  {
+		  changeSolutionAreaPicture('images/order'+document.theForm.orderSelect.value+'/mach'+document.theForm.machSelect.value+'/alpha'+document.theForm.angleAttackSelect.value+'/TecplotEuler_'+document.theForm.orderSelect.value+'_'+document.theForm.angleAttackSelect.value+'_'+document.theForm.machSelect.value+'_00.png')
+                  }
+                else
+                  {
+                  changeSolutionAreaPicture('images/order'+document.theForm.orderSelect.value+'/mach'+document.theForm.machSelect.value+'/alpha'+document.theForm.angleAttackSelect.value+'/TecplotEuler_'+document.theForm.orderSelect.value+'_'+document.theForm.angleAttackSelect.value+'_'+document.theForm.machSelect.value+'_'+document.theForm.refineSelect.value+'.png')
+                  }
+		setTimeout("document.theForm.meshbutton.disabled=false",3000)
+        document.theForm.startOverButton.disabled=true
+		setTimeout("document.theForm.startOverButton.disabled=false",3000)
+		document.theForm.solvebutton.disabled=true
+		document.theForm.angleAttackSelect.disabled=true
+		document.theForm.machSelect.disabled=true
+		document.theForm.orderSelect.disabled=true
+		document.theForm.pISelect.disabled=true
+		document.theForm.cFLSelect.disabled=true
+		document.theForm.refineSelect.disabled=false
+	}
+
+	function startOver()
+	{
+        populateAngleAttack();
+		populateOrder();
+		populateMach();
+		populatePI();
+	    populateCFL();
+	    populateRefine();
+		showhide('gridStatus')
+        showhide('solveStatus')
+		changeResidualAreaPicture('images/default_residual.png')
+		changeCpAreaPicture('images/default_cp.png')
+		changeMeshAreaPicture('images/default_mesh.png')
+		changeSolutionAreaPicture('images/default_solution.png')
+		document.theForm.meshbutton.disabled=false
+		document.theForm.solvebutton.disabled=true
+		document.theForm.angleAttackSelect.disabled=false
+		document.theForm.machSelect.disabled=true
+		document.theForm.orderSelect.disabled=true
+		document.theForm.pISelect.disabled=true
+		document.theForm.cFLSelect.disabled=true
+		document.theForm.refineSelect.disabled=true
+
+	}
+	
+	function startUp()
+	{
+		populateAngleAttack();
+		populateOrder();
+		populateMach();
+		populatePI();
+	    populateCFL();
+	    populateRefine();
+        showhide('gridStatus')
+        showhide('solveStatus')
+		changeResidualAreaPicture('images/default_residual.png')
+		changeCpAreaPicture('images/default_cp.png')
+		changeMeshAreaPicture('images/default_mesh.png')
+		changeSolutionAreaPicture('images/default_solution.png')
+		document.theForm.meshbutton.disabled=false
+		document.theForm.solvebutton.disabled=true
+		document.theForm.angleAttackSelect.disabled=false
+		document.theForm.machSelect.disabled=true
+		document.theForm.orderSelect.disabled=true
+		document.theForm.pISelect.disabled=true
+		document.theForm.cFLSelect.disabled=true
+		document.theForm.refineSelect.disabled=true
+
+	}
+
+        //need to figure out how to export to tabber
+	function changeMeshAreaPicture(pix)
+	{
+	    showhide('gridStatus')
+		document.images['displayAreaMesh'].src=pix
+	}
+
+	function changeCpAreaPicture(pix)
+	{
+	    showhide('solveStatus')
+		document.images['displayAreaCp'].src=pix
+	}
+
+	function changeResidualAreaPicture(pix)
+	{
+		document.images['displayAreaResidual'].src=pix
+	}
+
+	function changeSolutionAreaPicture(pix)
+	{
+		document.images['displayAreaSolution'].src=pix
+	}
+
+</script>
+
+<form name="theForm">
+	
+	<select id='angleAttackSelect' name='angle' onchange='populateOrder()'>
+	</select>
+    <select id='orderSelect' name='order' onchange='populateMach()' disabled=true>
+    </select>
+	<select id='machSelect' name='mach' disabled=true>
+    </select>
+	<br /><br />
+	<select id='pISelect' name='pI' disabled=true>
+    </select>
+	<select id='cFLSelect' name='cFL' disabled=true>
+    </select>
+	<select id='refineSelect' name='refine' disabled=true>
+    </select>
+	<script type="text/javascript">startUp()</script>
+
+	<br /><br />
+
+	<input type="button" name="meshbutton" value="Gen Mesh" onClick="MeshButtonClick()">
+	<input type="button" name="solvebutton" value="Solve Eq" onClick="SolveButtonClick()" disabled=true>
+	&#160; &#160; &#160; &#160; &#160;
+	<input type="button" name="startOverButton" value="Start Over" onClick="startOver()" disabled=true>
+	<br /><br />
+	<div style="display: none;" id="gridStatus">
+		Generating Mesh <img src='loading.gif' alt='loading...' \>
+	</div>
+	<div style="display: none;" id="solveStatus">
+		Generating Solution <img src='loading.gif' alt='loading...' \>
+	</div>
+</form>
+</body>
+
+<div class="tabber">
+
+	<div class="tabbertab">
+		<h2>Mesh</h2>
+		<p>
+		
+			<img name="displayAreaMesh" src="images/default_mesh.png" alt="No Mesh Plot Available" border="0" /> <br />
+      </p>
+	</div>
+
+	<div class="tabbertab">
+		<h2>Cp</h2>
+		<p>
+			<img name="displayAreaCp" src="images/default_cp.png" alt="No Cp Plot Available" border="0" /> <br />
+		</p>
+	</div>
+
+
+	<div class="tabbertab">
+		<h2>Residual</h2>
+		<p>
+			<img name="displayAreaResidual" src="images/default_residual.png" alt="No Residual Plot Available" border="0" /> <br />
+		</p>
+	</div>
+
+	<div class="tabbertab">
+		<h2>Solution</h2>
+		<p>
+			<img name="displayAreaSolution" src="images/default_solution.png" alt="No Solution Plot Available" border="0" /> <br />
+		</p>
+	</div>
+
+</div>
+
+<span style="font-size:15px">NOTE 1: No flux limiters are employed (this allows students to use this as a tool in verifying their basic code).</span>
+	<br />
+        <a href="limiter.pdf" target="_blank">Discussion of Flux Limiters and Results for Comparison</a>
+        <br />
+	<br />
+	<span style="font-size:15px">NOTE 2: Menus will automatically update to show only cases that ran completely through the adaptation cycles solely first or second order.  The order of accuracy denotes the stencil used to determine gradients.  First order accuracy denotes the use of only the nearest neighbors, while second order accuracy denotes the use of neighbors of the nearest neighbors in calculating the gradient.  Also, first order accurate solutions will often lack the resolution of second order accurate solutions, but occasionally first order accurate solutions must be run and restarted at second order accuracy because the speed of the change in gradients can cause numerical instability in the initial iterations.  Due to the massive numbers of cases, anything that needed to be run multiple times and hand generated (i.e., needed to be run first order for an unspecified number of iterations then second order to allow for massively changing gradients) was left out.</span>
+	<br /><br />
+    
+        <span style="font-size:15px">NOTE 3: Images were generated using Gnuplot, XMGrace, and Tecplot.  You will need Adobe Acrobat to view the PDF files, which can be downloaded for free at <a href="http://get.adobe.com/reader/otherversions/">Adobe's website</a>.</span>
+	<br /><br />
+    
+        <span style="font-size:15px">Any questions, comments, or bug reports should be sent to <a href="mailto:vincent_betro@utc.edu">Vincent C. Betro</a>, STEM Outreach Coordinator, UT SimCenter at Chattanooga: National Center for Computational Engineering</span>
+	<br /><br />
+        <a href="ProspectiveGradStudent.pdf" target="_blank">Discussion of Euler Solver Methodology for Prospective Graduate Students</a>
+
+        <br />
+
+        <a href="Tutorial.pdf" target="_blank">Tutorial for Students Regarding Use of the Euler Solver Emulator and Relations to Secondary Mathematics</a>
+
+        <br /> <br />
+
+
+</html>

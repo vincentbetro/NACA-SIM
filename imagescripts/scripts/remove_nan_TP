@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mv $1 `echo $1 | cut -c 3-36,41-`
+
+# Use this with
+# find . -name "*.dat" -exec ./remove_nan {} \;
